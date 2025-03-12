@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# data directory
+data/bids_dataset/
+data/processed/
