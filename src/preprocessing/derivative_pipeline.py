@@ -6,6 +6,7 @@ from os.path import dirname, join
 
 def run():
     pipeline_dir = dirname(__file__)
+    
 
     # discover all derivative scripts
     scripts = sorted(glob(join(pipeline_dir, "deriv-*", "main.py")))
