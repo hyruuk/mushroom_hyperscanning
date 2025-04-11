@@ -1,4 +1,5 @@
 import shutil
+import traceback
 from os.path import exists, join
 from shutil import copytree
 from typing import Optional
@@ -33,13 +34,17 @@ def create_derivative_directory(
             raise FileExistsError(f"Derivative {target_dir} already exists.")
         else:
             # remove the existing directory
-            print(f"Overwriting derivative {target_dir}...")
             shutil.rmtree(target_dir)
 
     if source_bids_root is None:
         source_bids_root = bids_root
 
-    print(f"Creating derivative {derivative_name} at {join(bids_root, 'derivatives', derivative_name)}...", end="", flush=True)
+    print(
+        f"{'Overwriting' if overwrite else 'Creating'} derivative {derivative_name} at "
+        f"{join(bids_root, 'derivatives', derivative_name)}...",
+        end="",
+        flush=True,
+    )
     copytree(
         source_bids_root,
         target_dir,
@@ -55,9 +60,26 @@ class PrintBlock:
         self.title = title
 
     def __enter__(self):
-        print("\n=============================")
-        print(self.title)
-        print("=============================")
+        title = "Starting " + self.title
+        width = len(title) + 4
+        print("╒" + "═" * width + "╕")
+        print(f"│ {title.center(width - 2)} │")
+        print("╘" + "═" * width + "╛")
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        print("=============================")
+    def __exit__(self, exc_type, exc_value, tb):
+        if exc_type is not None:
+            print()
+            traceback.print_exception(exc_type, exc_value, tb)
+
+            title = "Error in " + self.title + f" ({exc_type.__name__})"
+            width = len(title) + 4
+            print("╒" + "═" * width + "╕")
+            print(f"│ {title.center(width - 2)} │")
+            print("╘" + "═" * width + "╛")
+        else:
+            title = "Finished " + self.title
+            width = len(title) + 4
+            print("╒" + "═" * width + "╕")
+            print(f"│ {title.center(width - 2)} │")
+            print("╘" + "═" * width + "╛")
+        return True
