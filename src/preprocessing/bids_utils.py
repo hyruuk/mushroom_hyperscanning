@@ -1,3 +1,4 @@
+import shutil
 from os.path import exists, join
 from shutil import copytree
 from typing import Optional
@@ -27,8 +28,13 @@ def create_derivative_directory(
         Path to the derivative dataset.
     """
     target_dir = join(bids_root, "derivatives", derivative_name)
-    if exists(target_dir) and not overwrite:
-        raise FileExistsError(f"Derivative {target_dir} already exists.")
+    if exists(target_dir):
+        if not overwrite:
+            raise FileExistsError(f"Derivative {target_dir} already exists.")
+        else:
+            # remove the existing directory
+            print(f"Overwriting derivative {target_dir}...")
+            shutil.rmtree(target_dir)
 
     if source_bids_root is None:
         source_bids_root = bids_root
