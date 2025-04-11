@@ -16,13 +16,7 @@ def load_eeg(sub, ceremony, root):
         root=root,
     ).match()
 
-    raws = []
-    for path in paths:
-        raw = io.read_raw(path, preload=True)
-        # set annotations
-        events = mne.find_events(raw, "Trigger")
-        raw.set_annotations(mne.annotations_from_events(events, raw.info["sfreq"]))
-        raws.append(raw)
+    raws = [io.read_raw(path, preload=True) for path in paths]
     return paths, raws
 
 
