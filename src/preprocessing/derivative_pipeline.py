@@ -1,6 +1,7 @@
 import ast
 import importlib
 import os
+import shutil
 from glob import glob
 from os.path import dirname, join
 from typing import Dict, Optional
@@ -86,27 +87,44 @@ def main(overwrite: bool = True):
         main_file = join(step_dir, "main.py")
         if os.path.isfile(main_file):
             steps.append(main_file)
-            print(f" - {step_dir.split(os.sep)[-1]}")
+            print(f" - {step_dir.split(os.sep)[-1].replace('deriv-', '')}")
         else:
-            raise FileNotFoundError(f"Derivative step {step_dir.split(os.sep)[-1]} must contain a main.py file.")
+            print(f"\nERROR: Derivative step {step_dir.split(os.sep)[-1]} must contain a main.py file.")
+            return
     steps = {fname.split(os.sep)[-2].replace("deriv-", ""): fname for fname in steps}
-    print()
 
     # update the README file with the docstrings of the derivative steps
     update_readme(steps, PIPELINE_DIR)
 
     # run all scripts in order
+    previous_derivative = None
     for name in steps.keys():
+        # check if the derivative already exists
+        if not overwrite and os.path.exists(join(BIDS_ROOT, "derivatives", name)):
+            previous_derivative = join(BIDS_ROOT, "derivatives", name)
+            print(f"Derivative {name} already finished, skipping.")
+            continue
+
         # load the module
         module = importlib.import_module(f"deriv-{name}.main")
         if not hasattr(module, "main"):
-            raise AttributeError(f"Module {name} does not have a main function. Make sure to define it as the entry point.")
+            print(f"\nERROR: Derivative step {name} must contain a main function as the entry point.")
+            return
 
+        print()
         with PrintBlock(name):
             # create a new derivative directory for each step
-            derivative_dir = create_derivative_directory(name, BIDS_ROOT, overwrite=overwrite)
+            previous_derivative = derivative_dir = create_derivative_directory(
+                name, BIDS_ROOT, previous_derivative, overwrite=overwrite
+            )
+
             # run the main function of the module
-            module.main(derivative_dir)
+            try:
+                module.main(derivative_dir)
+            except:
+                # clean up the derivative directory if an error occurs
+                shutil.rmtree(derivative_dir)
+                raise
 
 
 if __name__ == "__main__":

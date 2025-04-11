@@ -6,7 +6,7 @@ from typing import Optional
 
 
 def create_derivative_directory(
-    derivative_name: str, bids_root: str, source_bids_root: Optional[str] = None, overwrite: bool = False
+    derivative_name: str, bids_root: str, previous_derivative: Optional[str] = None, overwrite: bool = False
 ) -> str:
     """
     Copy the BIDS dataset at `source_bids_root` over to the `<bids_root>/derivatives` folder and name it `derivative_name`.
@@ -18,8 +18,8 @@ def create_derivative_directory(
         Name of the derivative dataset.
     bids_root : str
         Path to the root of the BIDS dataset.
-    source_bids_root : str, optional
-        Path to the root of the source BIDS dataset, by default None
+    previous_derivative : str, optional
+        Path to the previous derivative dataset, by default None
     overwrite : bool, optional
         Whether to overwrite the derivative dataset if it already exists, by default False
 
@@ -36,8 +36,8 @@ def create_derivative_directory(
             # remove the existing directory
             shutil.rmtree(target_dir)
 
-    if source_bids_root is None:
-        source_bids_root = bids_root
+    if previous_derivative is None:
+        previous_derivative = bids_root
 
     print(
         f"{'Overwriting' if overwrite else 'Creating'} derivative {derivative_name} at "
@@ -46,7 +46,7 @@ def create_derivative_directory(
         flush=True,
     )
     copytree(
-        source_bids_root,
+        previous_derivative,
         target_dir,
         ignore=lambda _, n: ["derivatives"] if "derivatives" in n else [],
         dirs_exist_ok=overwrite,
