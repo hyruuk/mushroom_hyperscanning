@@ -68,9 +68,6 @@ class PrintBlock:
 
     def __exit__(self, exc_type, exc_value, tb):
         if exc_type is not None:
-            print()
-            traceback.print_exception(exc_type, exc_value, tb)
-
             title = "Error in " + self.title + f" ({exc_type.__name__})"
             width = len(title) + 4
             print("╒" + "═" * width + "╕")
@@ -82,4 +79,3 @@ class PrintBlock:
             print("╒" + "═" * width + "╕")
             print(f"│ {title.center(width - 2)} │")
             print("╘" + "═" * width + "╛")
-        return True
