@@ -56,7 +56,7 @@ def concatenate_raws_with_offsets(raws, gap_durations, trigger_offsets) -> mne.i
     return out
 
 
-def ceremony1_merge_eeg_splits(bids_root: str):
+def merge_ceremony1_eeg_splits(root: str):
     """
     Merges individudal EEG recordings of the ceremony1 task for subjects 3 and aligns them to the recording of subject 1.
     The recording of subject 3 cut out several times during the ceremony, so we need to align the recordings to the
@@ -65,11 +65,11 @@ def ceremony1_merge_eeg_splits(bids_root: str):
 
     Parameters
     ----------
-    bids_root : str
+    root : str
         Path to the root of the derivative BIDS dataset.
     """
-    sub1_paths, sub1_raw = load_eeg("01", "ceremony1", bids_root)
-    sub3_paths, sub3_raw = load_eeg("03", "ceremony1", bids_root)
+    sub1_paths, sub1_raw = load_eeg("01", "ceremony1", root)
+    sub3_paths, sub3_raw = load_eeg("03", "ceremony1", root)
 
     # print measurement data and duration for each file from sub1
     print("subject 1")

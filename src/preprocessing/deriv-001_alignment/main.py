@@ -5,16 +5,14 @@
 """
 
 from .align_audio_to_eeg import align_audio_to_eeg
-from .ceremony1_merge_eeg_splits import ceremony1_merge_eeg_splits
+from .align_ecg_to_eeg import align_ecg_to_eeg
+from .merge_ceremony1_eeg_splits import merge_ceremony1_eeg_splits
 
 
 def main(derivative_dir: str):
     # align ceremony 1 EEG data
-    ceremony1_merge_eeg_splits(derivative_dir)
-
+    merge_ceremony1_eeg_splits(derivative_dir)
     # align audio to EEG
-    print("TODO")
     align_audio_to_eeg(derivative_dir)
-
-    # merge ECG and EEG data
-    print("TODO")
+    # align ECG and EEG data
+    align_ecg_to_eeg(derivative_dir)

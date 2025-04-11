@@ -7,5 +7,5 @@ from mne import io
 from mne_bids import BIDSPath
 
 
-def align_audio_to_eeg(derivative_dir: str):
-    pass
+def align_audio_to_eeg(root: str):
+    print("TODO: align audio to EEG")
