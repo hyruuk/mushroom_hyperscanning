@@ -111,8 +111,8 @@ def save_eeg(raw, sub, ceremony, root):
     )
 
     os.makedirs(dirname(bids_path), exist_ok=True)
-
+    if "_eeg" not in bids_path:
+        bids_path = bids_path + "_eeg"
     if not bids_path.endswith(".edf"):
         bids_path = bids_path + ".edf"
-
     mne.export.export_raw(bids_path, raw, overwrite=True)
