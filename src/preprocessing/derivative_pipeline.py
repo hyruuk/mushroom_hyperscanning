@@ -6,7 +6,7 @@ from glob import glob
 from os.path import dirname, join
 from typing import Dict, Optional
 
-from bids_utils import PrintBlock, create_derivative_directory
+from utils import PrintBlock, create_derivative_directory
 
 PIPELINE_DIR = dirname(__file__)
 BIDS_ROOT = join(dirname(dirname(PIPELINE_DIR)), "data", "bids_dataset")
@@ -65,7 +65,7 @@ def update_readme(steps: Dict[str, str], pipeline_dir: str):
         readme.write("\n".join(new_readme_content))
 
 
-def main(overwrite: bool = True):
+def main(overwrite: bool = False):
     """
     This function discovers all derivative steps in the pipeline, runs them in order,
     and updates the README file with their docstrings.
