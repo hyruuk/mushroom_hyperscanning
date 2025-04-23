@@ -174,5 +174,4 @@ cython_debug/
 .pypirc
 
 # data directory
-data/bids_dataset/
-data/processed/
+data/*

@@ -1,6 +1,5 @@
 import shutil
-import traceback
-from os.path import exists, join
+from os.path import dirname, exists, join
 from shutil import copytree
 from typing import Optional
 
@@ -9,7 +8,7 @@ def create_derivative_directory(
     derivative_name: str, bids_root: str, previous_derivative: Optional[str] = None, overwrite: bool = False
 ) -> str:
     """
-    Copy the BIDS dataset at `source_bids_root` over to the `<bids_root>/derivatives` folder and name it `derivative_name`.
+    Copy the BIDS dataset at `source_bids_root` over to the `<bids_root>/../<derivative_name>` folder.
     If `source_bids_root` is None, the base BIDS dataset at `bids_root` will be copied.
 
     Parameters
@@ -28,7 +27,7 @@ def create_derivative_directory(
     str
         Path to the derivative dataset.
     """
-    target_dir = join(bids_root, "derivatives", derivative_name)
+    target_dir = join(dirname(bids_root), derivative_name)
     if exists(target_dir):
         if not overwrite:
             raise FileExistsError(f"Derivative {target_dir} already exists.")

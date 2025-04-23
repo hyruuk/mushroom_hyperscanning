@@ -100,8 +100,9 @@ def main(overwrite: bool = True):
     previous_derivative = None
     for name in steps.keys():
         # check if the derivative already exists
-        if not overwrite and os.path.exists(join(BIDS_ROOT, "derivatives", name)):
-            previous_derivative = join(BIDS_ROOT, "derivatives", name)
+        derivative_dir = join(dirname(BIDS_ROOT), name)
+        if not overwrite and os.path.exists(derivative_dir):
+            previous_derivative = derivative_dir
             print(f"Derivative {name} already finished, skipping.")
             continue
 
