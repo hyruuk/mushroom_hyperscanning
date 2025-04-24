@@ -5,9 +5,10 @@ from shutil import copytree
 from typing import Optional
 
 import mne
-import pandas as pd
+import numpy as np
 from mne import io
 from mne_bids import BIDSPath
+from pydub import AudioSegment
 
 
 def create_derivative_directory(
@@ -116,3 +117,12 @@ def save_eeg(raw, sub, ceremony, root):
     if not bids_path.endswith(".edf"):
         bids_path = bids_path + ".edf"
     mne.export.export_raw(bids_path, raw, overwrite=True)
+
+
+def load_audio(ceremony, root):
+    path = join(root, "audio", f"ses-{ceremony}", f"audio_ses-{ceremony}_task-psilo_audio.mp3")
+
+    audio = AudioSegment.from_mp3(path)
+    srate = audio.frame_rate
+    audio = np.array(audio.get_array_of_samples())
+    return audio, srate
