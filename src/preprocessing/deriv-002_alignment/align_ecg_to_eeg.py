@@ -52,9 +52,11 @@ def align_ecg_to_eeg(root: str):
 
             # find triggers
             x = (ecg_trigger["ExG [2]-ch1"] < -350000).astype(float)
-            ecg_onset = x[(x.shift(fill_value=0) == 0) & (x == 1)].index.values.mean()
+            # onset mean of first 5 triggers after offset
+            ecg_onset = x[(x.shift(fill_value=0) == 0) & (x == 1)].index.values[:5].mean()
 
             if ecg_onset - curandero_onset < 0:
+                # if ECG trigger is before curandero trigger, pad the data
                 pad_duration = abs(ecg_onset - curandero_onset)
                 pad_samples = int(np.ceil(pad_duration * sfreq))
 
@@ -74,7 +76,7 @@ def align_ecg_to_eeg(root: str):
                 ecg_data = pd.concat([ecg_data_pad, ecg_data])
                 ecg_trigger = pd.concat([ecg_trigger_pad, ecg_trigger])
             else:
-                # align ECG data to EEG data
+                # if ECG trigger is after curandero trigger, align the data to start at the same time
                 ecg_data = ecg_data[ecg_data.index > (ecg_onset - curandero_onset)]
                 ecg_data.index -= ecg_data.index[0]
                 ecg_trigger = ecg_trigger[ecg_trigger.index > (ecg_onset - curandero_onset)]
