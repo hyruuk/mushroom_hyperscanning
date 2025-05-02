@@ -8,7 +8,7 @@ def convert_eeg(root: str):
     """
     paths = BIDSPath(subject=".*", session=".*", task="psilo", datatype="eeg", root=root).match()
     for path in paths:
-        raw = mne.io.read_raw(path)
+        raw = mne.io.read_raw(path, preload=True)
 
         # find events and save as annotations
         events = mne.find_events(raw, "Trigger")
