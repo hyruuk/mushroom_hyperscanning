@@ -1,3 +1,4 @@
+import argparse
 import ast
 import importlib
 import os
@@ -129,4 +130,8 @@ def main(overwrite: bool = False):
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Run derivative pipeline steps.")
+    parser.add_argument("--overwrite", action="store_true", help="Overwrite existing derivative directories")
+    args = parser.parse_args()
+
+    main(overwrite=args.overwrite)
