@@ -4,3 +4,4 @@ mne
 mne-bids
 edfio
 gdown
+pydub
