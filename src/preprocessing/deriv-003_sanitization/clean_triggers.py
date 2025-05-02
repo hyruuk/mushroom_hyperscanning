@@ -25,6 +25,6 @@ def clean_triggers(derivative_dir: str) -> None:
 
         for sub in subs:
             eeg = load_eeg(sub, ceremony, derivative_dir, preload=True)
-            new_annot = mne.Annotations(annot["onset"].values, annot["duration"].values, annot["description"].values)
-            eeg.set_annotations(new_annot)
+            new_annot = mne.Annotations(annot["onset"].values / 1000, annot["duration"].values, annot["description"].values)
+            eeg = eeg.set_annotations(new_annot)
             mne.export.export_raw(eeg.filenames[0], eeg, overwrite=True)
