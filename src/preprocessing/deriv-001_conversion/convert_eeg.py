@@ -16,7 +16,10 @@ def convert_eeg(root: str):
 
         # rename channels to standard names
         raw.rename_channels(lambda x: x.replace("EEG ", "").replace("-Pz", "").replace("X1:", ""))
-        raw.set_channel_types({"ECG": "ecg"})
+        raw.set_channel_types({"ECG": "ecg", "CM": "misc"})
+
+        # re-reference to linked mastoids
+        raw.set_eeg_reference(ref_channels=["A1", "A2"])
 
         # remove unused channels
         raw.drop_channels(["Trigger", "Event", "X2:", "X3:"])
