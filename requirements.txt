@@ -3,3 +3,4 @@ pandas
 mne
 mne-bids
 edfio
+gdown
