@@ -9,5 +9,7 @@ You can run the entire preprocessing pipeline by executing the `derivative_pipel
 ## 002_alignment
 1. Align the audio to the EEG data. (TODO)
 2. Merge ECG and EEG data. (TODO)
+## 003_sanitization
+1. Clean triggers (TODO: ceremony 2)
 
 <!-- DERIVATIVE_STEPS_AUTOGENERATE_END -->
