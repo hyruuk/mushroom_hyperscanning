@@ -92,8 +92,8 @@ def align_ecg_to_eeg(root: str):
                 ecg_data *= -1
 
             ecg_raw = mne.io.RawArray(
-                np.concatenate([ecg_data.reshape(1, -1), ecg_trigger.reshape(1, -1)], axis=0) / 1e9,
-                mne.create_info(ch_names=["ECG", "ECG_Trigger"], ch_types=["ecg", "ecg"], sfreq=curandero_eeg.info["sfreq"]),
+                ecg_data.reshape(1, -1) / 1e9,
+                mne.create_info(ch_names=["ECG"], ch_types=["ecg"], sfreq=curandero_eeg.info["sfreq"]),
             )
 
             if subj == "02":

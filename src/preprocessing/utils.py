@@ -116,7 +116,7 @@ def save_eeg(raw, sub, ceremony, root):
         bids_path = bids_path + "_eeg"
     if not bids_path.endswith(".edf"):
         bids_path = bids_path + ".edf"
-    mne.export.export_raw(bids_path, raw, overwrite=True)
+    mne.export.export_raw(bids_path, raw, physical_range="channelwise", overwrite=True)
 
 
 def load_audio(ceremony, root):

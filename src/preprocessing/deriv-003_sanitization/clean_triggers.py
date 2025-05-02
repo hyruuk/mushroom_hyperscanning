@@ -2,7 +2,7 @@ from os.path import dirname, join
 
 import mne
 import pandas as pd
-from utils import load_eeg
+from utils import load_eeg, save_eeg
 
 
 def clean_triggers(derivative_dir: str) -> None:
@@ -27,4 +27,4 @@ def clean_triggers(derivative_dir: str) -> None:
             eeg = load_eeg(sub, ceremony, derivative_dir, preload=True)
             new_annot = mne.Annotations(annot["onset"].values / 1000, annot["duration"].values, annot["description"].values)
             eeg = eeg.set_annotations(new_annot)
-            mne.export.export_raw(eeg.filenames[0], eeg, overwrite=True)
+            save_eeg(eeg, sub, ceremony, derivative_dir)
