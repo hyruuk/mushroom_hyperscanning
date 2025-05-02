@@ -20,9 +20,11 @@ def align_audio_to_eeg(root: str):
         audio_path = os.path.join(root, "audio", f"ses-{ceremony}", f"audio_ses-{ceremony}_task-psilo_audio.mp3")
 
         # Load the MP3 file
+        print("Loading audio file...", end="", flush=True)
         audio, audio_rate = load_audio(ceremony, root)
+        print("done")
 
-        print(f"Audio duration: {audio.shape[0] / audio_rate}")
+        print(f"Audio duration: {audio.shape[0] / audio_rate:.2f} seconds")
 
         # cut audio to start at the same time as EEG
         audio_start = audio_trigger_offset - curandero_trigger_onset
@@ -42,8 +44,8 @@ def align_audio_to_eeg(root: str):
         # cut audio to the same length as EEG
         audio = audio[audio_start : audio_start + int(curandero_eeg.times[-1] * audio_rate)]
 
-        print(f"Audio duration after cutting/padding: {audio.shape[0] / audio_rate}")
-        print(f"EEG duration: {curandero_eeg.times[-1]}")
+        print(f"Audio duration after cutting/padding: {audio.shape[0] / audio_rate:.2f} seconds")
+        print(f"EEG duration: {curandero_eeg.times[-1]:.2f} seconds")
 
         # save audio
         audio = AudioSegment(audio.tobytes(), frame_rate=audio_rate, sample_width=audio.dtype.itemsize, channels=1)
