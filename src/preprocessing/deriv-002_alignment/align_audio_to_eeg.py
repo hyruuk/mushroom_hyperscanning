@@ -6,6 +6,8 @@ from utils import load_audio, load_eeg
 
 
 def align_audio_to_eeg(root: str):
+    # audio offsets hardcoded based on manual inspection currently contains a random offset
+    # TODO: reconstruct exact audio timings
     ceremonies = {"ceremony1": 1724, "ceremony2": 96}
 
     for ceremony, audio_trigger_offset in ceremonies.items():
