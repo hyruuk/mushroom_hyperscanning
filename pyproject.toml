@@ -1,0 +1,22 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=61.0"]
+
+[project]
+dependencies = [
+  "numpy",
+  "pandas",
+  "matplotlib",
+  "mne",
+  "mne-bids",
+  "edfio",
+  "gdown",
+  "pydub",
+  "neurokit2",
+  "PyWavelets",
+]
+name = "mushroom_hyperscanning"
+version = "0.1.0"
+
+[tool.setuptools]
+packages = ["mushroom_hyperscanning"]
