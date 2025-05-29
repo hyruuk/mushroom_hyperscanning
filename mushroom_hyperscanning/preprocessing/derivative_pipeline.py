@@ -7,7 +7,7 @@ from glob import glob
 from os.path import dirname, join
 from typing import Dict, Optional
 
-from utils import PrintBlock, create_derivative_directory
+from mushroom_hyperscanning.utils import PrintBlock, create_derivative_directory
 
 PIPELINE_DIR = dirname(__file__)
 BIDS_ROOT = join(dirname(dirname(PIPELINE_DIR)), "data", "bids_dataset")
