@@ -1,5 +1,6 @@
 import argparse
 import os
+from pathlib import Path
 
 import gdown
 
@@ -13,8 +14,10 @@ def download_drive_folder(folder_url, output_dir):
 
 
 if __name__ == "__main__":
+    default_dir = Path(__file__).resolve().parent.parent / "data"
+
     parser = argparse.ArgumentParser(description="Download private Google Drive folder.")
-    parser.add_argument("--output_dir", type=str, default="../data/", help="Output directory for downloaded files.")
+    parser.add_argument("--output_dir", type=str, default=default_dir, help="Output directory for downloaded files.")
     args = parser.parse_args()
 
     folder_url = input("Copy and paste here the link to the bidsified data folder on Google Drive: ").strip()
