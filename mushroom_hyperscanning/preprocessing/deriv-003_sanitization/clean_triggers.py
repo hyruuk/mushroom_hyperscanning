@@ -2,7 +2,8 @@ from os.path import dirname, join
 
 import mne
 import pandas as pd
-from utils import load_eeg, save_eeg
+
+from mushroom_hyperscanning.preprocessing.utils import load_eeg, save_eeg
 
 
 def clean_triggers(derivative_dir: str) -> None:

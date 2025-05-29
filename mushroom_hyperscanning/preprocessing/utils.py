@@ -2,7 +2,7 @@ import os
 import shutil
 from os.path import dirname, exists, join
 from shutil import copytree
-from typing import Optional
+from typing import Optional, Tuple
 
 import mne
 import numpy as np
@@ -18,21 +18,13 @@ def create_derivative_directory(
     Copy the BIDS dataset at `source_bids_root` over to the `<bids_root>/../<derivative_name>` folder.
     If `source_bids_root` is None, the base BIDS dataset at `bids_root` will be copied.
 
-    Parameters
-    ----------
-    derivative_name : str
-        Name of the derivative dataset.
-    bids_root : str
-        Path to the root of the BIDS dataset.
-    previous_derivative : str, optional
-        Path to the previous derivative dataset, by default None
-    overwrite : bool, optional
-        Whether to overwrite the derivative dataset if it already exists, by default False
-
-    Returns
-    -------
-    str
-        Path to the derivative dataset.
+    Args:
+        derivative_name (str): Name of the derivative directory to create.
+        bids_root (str): Root directory of the BIDS dataset.
+        previous_derivative (Optional[str]): Path to the previous derivative to copy from. If None, uses `bids_root`.
+        overwrite (bool): Whether to overwrite the existing derivative directory if it exists.
+    Returns:
+        str: Path to the created derivative directory.
     """
     target_dir = join(dirname(bids_root), derivative_name)
     if exists(target_dir):
@@ -62,6 +54,11 @@ def create_derivative_directory(
 
 
 class PrintBlock:
+    """
+    A context manager that prints a block of text with a title, indicating the start and end of a process.
+    It also handles exceptions by printing an error message if an exception occurs.
+    """
+
     def __init__(self, title: str):
         self.title = title
 
@@ -87,7 +84,18 @@ class PrintBlock:
             print("╘" + "═" * width + "╛")
 
 
-def load_eeg(sub, ceremony, root, preload=False):
+def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.io.Raw:
+    """
+    Load EEG data for a given subject and ceremony from the BIDS dataset.
+
+    Args:
+        sub (str): Subject identifier.
+        ceremony (str): Ceremony identifier.
+        root (str): Root directory of the BIDS dataset.
+        preload (bool): Whether to preload the data into memory.
+    Returns:
+        mne.io.Raw: The loaded EEG data.
+    """
     paths = BIDSPath(
         subject=sub,
         session=ceremony,
@@ -96,11 +104,21 @@ def load_eeg(sub, ceremony, root, preload=False):
         root=root,
     ).match()
 
-    assert len(paths) == 1, f"Expected 1 path, got {len(paths)} paths: {paths}"
+    if len(paths) == 0:
+        raise FileNotFoundError(f"No EEG data found for subject {sub} in ceremony {ceremony}.")
     return io.read_raw(paths[0], preload=preload)
 
 
-def save_eeg(raw, sub, ceremony, root):
+def save_eeg(raw: mne.io.Raw, sub: str, ceremony: str, root: str) -> None:
+    """
+    Save EEG data to the BIDS format.
+
+    Args:
+        raw (mne.io.Raw): The EEG data to save.
+        sub (str): Subject identifier.
+        ceremony (str): Ceremony identifier.
+        root (str): Root directory of the BIDS dataset.
+    """
     bids_path = str(
         BIDSPath(
             subject=sub,
@@ -119,7 +137,16 @@ def save_eeg(raw, sub, ceremony, root):
     mne.export.export_raw(bids_path, raw, physical_range="channelwise", overwrite=True)
 
 
-def load_audio(ceremony, root):
+def load_audio(ceremony: str, root: str) -> Tuple[np.ndarray, int]:
+    """
+    Load audio data for a given ceremony from the BIDS dataset.
+
+    Args:
+        ceremony (str): Ceremony identifier.
+        root (str): Root directory of the BIDS dataset.
+    Returns:
+        tuple: A tuple containing the audio data as a NumPy array and the sample rate.
+    """
     path = join(root, "audio", f"ses-{ceremony}", f"audio_ses-{ceremony}_task-psilo_audio.mp3")
 
     audio = AudioSegment.from_mp3(path)

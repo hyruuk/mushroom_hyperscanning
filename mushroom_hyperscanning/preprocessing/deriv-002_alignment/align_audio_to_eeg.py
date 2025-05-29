@@ -2,7 +2,8 @@ import os
 
 import numpy as np
 from pydub import AudioSegment
-from utils import load_audio, load_eeg
+
+from mushroom_hyperscanning.preprocessing.utils import load_audio, load_eeg
 
 
 def align_audio_to_eeg(root: str):

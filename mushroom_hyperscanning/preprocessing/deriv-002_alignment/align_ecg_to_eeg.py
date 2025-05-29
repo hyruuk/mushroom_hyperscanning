@@ -5,7 +5,8 @@ from os.path import join
 import mne
 import numpy as np
 import pandas as pd
-from utils import load_eeg, save_eeg
+
+from mushroom_hyperscanning.preprocessing.utils import load_eeg, save_eeg
 
 
 def load_custom_ecg(subject, session, bids_root, offset=0):

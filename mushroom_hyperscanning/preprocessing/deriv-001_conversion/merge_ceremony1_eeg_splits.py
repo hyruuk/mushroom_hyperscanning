@@ -1,4 +1,5 @@
 import os
+from typing import List, Tuple
 
 import mne
 import numpy as np
@@ -7,7 +8,7 @@ from mne import io
 from mne_bids import BIDSPath
 
 
-def load_eeg(sub, ceremony, root):
+def load_eeg_pre_merge(sub: str, ceremony: str, root: str) -> Tuple[List[BIDSPath], List[mne.io.Raw]]:
     paths = BIDSPath(
         subject=sub,
         session=ceremony,
@@ -62,8 +63,8 @@ def merge_ceremony1_eeg_splits(root: str):
     root : str
         Path to the root of the derivative BIDS dataset.
     """
-    sub1_paths, sub1_raw = load_eeg("01", "ceremony1", root)
-    sub3_paths, sub3_raw = load_eeg("03", "ceremony1", root)
+    sub1_paths, sub1_raw = load_eeg_pre_merge("01", "ceremony1", root)
+    sub3_paths, sub3_raw = load_eeg_pre_merge("03", "ceremony1", root)
 
     # print measurement data and duration for each file from sub1
     print("subject 1")
