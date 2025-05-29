@@ -14,6 +14,9 @@ dependencies = [
   "pydub",
   "neurokit2",
   "PyWavelets",
+  "umap-learn",
+  "scikit-learn",
+  "deeptime",
 ]
 name = "mushroom_hyperscanning"
 version = "0.1.0"
