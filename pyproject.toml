@@ -17,6 +17,10 @@ dependencies = [
   "umap-learn",
   "scikit-learn",
   "deeptime",
+  "joblib",
+  "tqdm",
+  "antropy",
+  "neurokit2",
 ]
 name = "mushroom_hyperscanning"
 version = "0.1.0"
