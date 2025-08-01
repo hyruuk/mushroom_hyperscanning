@@ -1,6 +1,6 @@
 """
-1. Align the audio to the EEG data. (TODO)
-2. Merge ECG and EEG data. (TODO)
+1. Align the audio to the EEG data. (TODO: crude timings for now due to missing audio triggers)
+2. Merge ECG and EEG data.
 """
 
 from .align_audio_to_eeg import align_audio_to_eeg

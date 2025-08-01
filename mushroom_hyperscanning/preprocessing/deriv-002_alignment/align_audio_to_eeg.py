@@ -24,7 +24,12 @@ def align_audio_to_eeg(root: str):
 
         # Load the MP3 file
         print("Loading audio file...", end="", flush=True)
-        audio, audio_rate = load_audio(ceremony, root)
+        try:
+            audio, audio_rate = load_audio(ceremony, root)
+        except FileNotFoundError as e:
+            if "No such file or directory: 'ffprobe'" in str(e):
+                raise RuntimeError("ffprobe is required to load audio files but was not found. Please install ffmpeg/ffprobe and ensure it is in your PATH.")
+            raise
         print("done")
 
         print(f"Audio duration: {audio.shape[0] / audio_rate:.2f} seconds")
@@ -49,7 +54,9 @@ def align_audio_to_eeg(root: str):
 
         print(f"Audio duration after cutting/padding: {audio.shape[0] / audio_rate:.2f} seconds")
         print(f"EEG duration: {curandero_eeg.times[-1]:.2f} seconds")
+        print("Saving aligned audio file...", end="", flush=True)
 
         # save audio
         audio = AudioSegment(audio.tobytes(), frame_rate=audio_rate, sample_width=audio.dtype.itemsize, channels=1)
         audio.export(audio_path, format="mp3")
+        print("done")

@@ -5,12 +5,13 @@ import os
 import shutil
 from glob import glob
 from os.path import dirname, join
+from pathlib import Path
 from typing import Dict, Optional
 
 from mushroom_hyperscanning.utils import PrintBlock, create_derivative_directory
 
-PIPELINE_DIR = dirname(__file__)
-BIDS_ROOT = join(dirname(dirname(PIPELINE_DIR)), "data", "bids_dataset")
+PIPELINE_DIR = Path(__file__).parent.parent / "preprocessing"
+BIDS_ROOT = PIPELINE_DIR.parent.parent / "data" / "bids_dataset"
 
 
 def extract_module_docstring(file_path: str) -> Optional[str]:
@@ -108,7 +109,7 @@ def main(overwrite: bool = False):
             continue
 
         # load the module
-        module = importlib.import_module(f"deriv-{name}.main")
+        module = importlib.import_module(f"mushroom_hyperscanning.preprocessing.deriv-{name}.main")
         if not hasattr(module, "main"):
             print(f"\nERROR: Derivative step {name} must contain a main function as the entry point.")
             return
@@ -116,9 +117,7 @@ def main(overwrite: bool = False):
         print()
         with PrintBlock(name):
             # create a new derivative directory for each step
-            previous_derivative = derivative_dir = create_derivative_directory(
-                name, BIDS_ROOT, previous_derivative, overwrite=overwrite
-            )
+            previous_derivative = derivative_dir = create_derivative_directory(name, BIDS_ROOT, previous_derivative, overwrite=overwrite)
 
             # run the main function of the module
             try:
