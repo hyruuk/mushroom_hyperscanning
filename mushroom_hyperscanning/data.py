@@ -7,7 +7,7 @@ import numpy as np
 from mne_bids import BIDSPath
 from pydub import AudioSegment
 
-CH_TYPE_MAPPING = {"CM": "misc", "ECG": "ecg"}
+CH_TYPE_MAPPING = {"CM": "misc", "ECG": "ecg", "Ax": "misc", "Ay": "misc", "Az": "misc"}
 
 
 def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.io.BaseRaw:
