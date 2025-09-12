@@ -7,8 +7,10 @@ import numpy as np
 from mne_bids import BIDSPath
 from pydub import AudioSegment
 
+CH_TYPE_MAPPING = {"CM": "misc", "ECG": "ecg"}
 
-def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.io.Raw:
+
+def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.io.BaseRaw:
     """
     Load EEG data for a given subject and ceremony from the BIDS dataset.
 
@@ -30,7 +32,10 @@ def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.i
 
     if len(paths) == 0:
         raise FileNotFoundError(f"No EEG data found for subject {sub} in ceremony {ceremony}.")
-    return mne.io.read_raw(paths[0], preload=preload)
+    raw = mne.io.read_raw(paths[0], preload=preload)
+    raw.info.set_channel_types({ch: CH_TYPE_MAPPING[ch] if ch in CH_TYPE_MAPPING else "eeg" for ch in raw.ch_names})
+    raw.set_montage(mne.channels.make_standard_montage("standard_1020"))
+    return raw
 
 
 def save_eeg(raw: mne.io.Raw, sub: str, ceremony: str, root: str) -> None:
