@@ -1,5 +1,6 @@
 import os
 from os.path import dirname, join
+from pathlib import Path
 from typing import Tuple
 
 import mne
@@ -22,6 +23,8 @@ def load_eeg(sub: str, ceremony: str, root: str, preload: bool = False) -> mne.i
     Returns:
         mne.io.Raw: The loaded EEG data.
     """
+    if not Path(root).exists():
+        raise FileNotFoundError(f"Couldn't find the root folder: {root}")
     paths = BIDSPath(
         subject=sub,
         session=ceremony,
