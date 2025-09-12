@@ -1,0 +1,89 @@
+onset,duration,description
+1068247,60.0,head movement
+1130450,60.0,eye blinks
+1184610,60.0,jaw clench
+1259850,110.0,eyes closed
+1370550,120.0,eyes open
+1778347,896.0,control
+2047700,36.0,song
+2173033,32.0,song
+2233120,57.0,song
+2319070,73.0,song
+2519107,123.0,song
+2714560,0.0,ingestion patient
+3623830,104.0,eyes closed
+3727540,109.0,eyes open
+3917303,0.0,ingestion curandero and apprentice
+4283397,0.0,turn off lights
+4381740,59.0,song
+4460517,58.0,song
+4649270,112.0,song
+4905263,128.0,song
+5058240,123.0,song
+5336490,78.0,"interruption, patient bathroom"
+5732227,55.0,song
+5813940,25.0,song
+5930873,0.0,patient says medicine is very strong but likes it
+6029083,71.0,"interruption, curandero bathroom"
+6184380,49.0,song
+6266757,60.0,song
+6485417,33.0,"song, whistle"
+6682953,0.0,"interruption, curandero asking apprentice for drum"
+6813620,300.0,"song, drum"
+7175940,0.0,"interruption, curandero asking for agua de cristo"
+7689397,8.0,"song, one sentence"
+7835020,92.0,"song, whistle"
+7956900,10.0,"song, short whistle"
+8006857,150.0,song
+8172040,0.0,"interruption, curandero blows on copalera"
+8208852,87.0,"interruption, curandero bathroom"
+8365957,0.0,"interruption, connection-sub04, patient asks for silence"
+8525180,0.0,"interruption, connection-sub04, patient starts lying down"
+8650507,153.0,"song, apprentice"
+8961317,0.0,"interruption, curandero asks for san pedro"
+9040223,180.0,"song, apprentice"
+9457487,0.0,"interruption, curandero asks about pain, patient feels good"
+9728423,53.0,"song, curandero and apprentice"
+10076467,319.0,"song, apprentice, drum, connection-sub04, connection-sub02"
+10755673,0.0,"interruption, adjusting patient EEG, patient sitting up"
+10889140,0.0,"interruption, patient bathroom with apprentice, laughing"
+11312970,0.0,"interruption, curandero wants to vomit"
+11458300,0.0,"interruption, curandero asks for cigarette"
+11893413,81.0,song
+12437160,68.0,"song, luce de cristo"
+12505210,0.0,"bells, connection-sub04 decreased, accident vision?"
+12556130,85.0,"interruption, curandero goes outside"
+12670000,149.0,"interruption, apprentice and researcher go outside to lock the gate"
+12741827,0.0,"interruption, curandero offering coffee"
+12927153,0.0,"interruption, curandero cleaning researchers and equipment with copalera"
+13204410,10.0,"song, one sentence"
+13521480,0.0,"interruption, apprentice sits down next to patient on the floor"
+13635983,76.0,song
+13825940,10.0,"song, one sentence"
+14028267,0.0,"limpia, connection-sub01, connection-sub02, connection-sub04, apprentice pours agua de cristo into bucket, purifying"
+14157403,0.0,"limpia, connection-sub01, connection-sub02, connection-sub04, apprentice with agua de cristo and flowers"
+14336117,0.0,"limpia, connection-sub01, connection-sub02, connection-sub04, song, cleansing the front door and altar with flowers and water"
+14440337,10.0,"song, one sentence"
+14666760,60.0,"song, whistle"
+14731097,0.0,"interruption, patient stands up, washing hands, curandero shouting 'take your hands off <patient>', patient repeating 3 times 'recibo a dios padre'"
+14871187,144.0,"limpia, connection-sub01, connection-sub02, connection-sub04, washing hands with san pedro, group talks about accident vision"
+15128380,0.0,"interruption, patient thinks about grandmother of their husband"
+15242683,0.0,"limpia, apprentice says grandmother's name, cleaning hand with san pedro"
+15331157,10.0,"song, one sentence"
+15670000,186.0,"limpia, connection-sub01, connection-sub02, connection-sub04, egg, everyone"
+15915610,268.0,"song, apprentice"
+16530543,10.0,"song, one sentence"
+16793657,76.0,"song, curandero and apprentice"
+16973143,0.0,"interruption, patient takes cellphone"
+17127213,446.0,"interruption, patient plays music on cellphone"
+17602557,77.0,"interruption, curandero bathroom"
+17780100,0.0,"interruption, curandero lights fire on the ground"
+17869430,0.0,song
+18388393,0.0,"interruption, patient bathroom"
+18681093,0.0,"interruption, curandero crying"
+19015083,0.0,"interruption, curandero crying, patient and apprentice laughing"
+19079600,82.0,"song, everyone, ends with curandero groaning"
+19283917,162.0,"song, everyone"
+19518107,133.0,"interruption, curandero crying"
+19651843,0.0,"interruption, group conversation starts"
+19809233,0.0,"interruption, lighting a candle, curandero still crying"

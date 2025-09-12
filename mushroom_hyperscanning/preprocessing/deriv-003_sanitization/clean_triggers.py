@@ -17,7 +17,7 @@ def clean_triggers(derivative_dir: str) -> None:
     """
     ceremonies = {
         "ceremony1": ["01", "03"],
-        # "ceremony2": ["01", "04"],  # TODO: add ceremony 2
+        "ceremony2": ["01", "04"],
     }
 
     cdir = dirname(__file__)
