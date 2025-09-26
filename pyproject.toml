@@ -21,6 +21,7 @@ dependencies = [
   "tqdm",
   "antropy",
   "neurokit2",
+  "jupyter",
 ]
 name = "mushroom_hyperscanning"
 version = "0.1.0"
