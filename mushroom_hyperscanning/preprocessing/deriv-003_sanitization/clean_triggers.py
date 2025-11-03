@@ -8,7 +8,7 @@ from mushroom_hyperscanning.data import load_eeg, save_eeg
 
 def clean_triggers(derivative_dir: str) -> None:
     """
-    Clean triggers (TODO: ceremony 2)
+    Clean triggers (TODO: ceremony 1)
 
     Parameters
     ----------
