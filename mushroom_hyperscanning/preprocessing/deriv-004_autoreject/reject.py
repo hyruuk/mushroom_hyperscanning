@@ -123,7 +123,7 @@ def reject(derivative_dir: str) -> None:
             with redirect_stdout(tee_stdout), redirect_stderr(tee_stderr):
                 eeg = load_eeg(sub, ceremony, derivative_dir, preload=True)
                 # Crop to first 20 minutes for faster processing (remove in production)
-                eeg.crop(tmin=60 * 5, tmax=60 * 10)
+                # eeg.crop(tmin=60 * 5, tmax=60 * 10)
 
                 # Add raw data plots to report
                 fig_raw_ts = eeg.plot(duration=30, n_channels=30, show=False)
