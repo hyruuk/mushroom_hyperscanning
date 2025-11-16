@@ -89,8 +89,8 @@ def plot_rejection_proportions(data, ch_names):
 
 def reject(derivative_dir: str) -> None:
     ceremonies = {
-        "ceremony1": ["01", "03"],
-        "ceremony2": ["01", "04"],
+        # "ceremony1": ["01", "03"],
+        "ceremony2": ["04"],  # ["01", "04"],
     }
 
     for ceremony, subs in ceremonies.items():
